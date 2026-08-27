@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="description" content="A beautifully crafted Flappy Bird game with stunning visuals, particle effects, and smooth gameplay." />
+  <title>Flappy Bird — Neon Wings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="game-wrapper">
+    <!-- Start Screen -->
+    <div id="start-screen" class="overlay">
+      <div class="start-content">
+        <div class="logo-glow"></div>
+        <h1 class="game-title">
+          <span class="title-word flappy">FLAPPY</span>
+          <span class="title-word bird">BIRD</span>
+        </h1>
+        <p class="subtitle">NEON WINGS EDITION</p>
+        <div class="bird-preview">
+          <div class="preview-bird"></div>
+        </div>
+        <button id="start-btn" class="btn-play">
+          <span class="btn-icon">▶</span>
+          <span class="btn-text">TAP TO PLAY</span>
+        </button>
+        <div class="controls-hint">
+          <span>SPACE</span> or <span>TAP</span> to flap
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameover-screen" class="overlay hidden">
+      <div class="gameover-content">
+        <h2 class="gameover-title">GAME OVER</h2>
+        <div class="score-panel">
+          <div class="score-row">
+            <span class="score-label">SCORE</span>
+            <span id="final-score" class="score-value">0</span>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-row">
+            <span class="score-label">BEST</span>
+            <span id="best-score" class="score-value best">0</span>
+          </div>
+        </div>
+        <div id="new-best-badge" class="new-best hidden">⭐ NEW BEST!</div>
+        <div class="medal-container" id="medal-container">
+          <div class="medal" id="medal"></div>
+          <span class="medal-label" id="medal-label"></span>
+        </div>
+        <button id="restart-btn" class="btn-play">
+          <span class="btn-icon">↻</span>
+          <span class="btn-text">PLAY AGAIN</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- HUD -->
+    <div id="hud" class="hidden">
+      <div id="score-display">0</div>
+    </div>
+
+    <!-- Canvas -->
+    <canvas id="game-canvas"></canvas>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

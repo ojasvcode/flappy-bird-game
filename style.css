@@ -1,0 +1,469 @@
+/* ============================================================
+   FLAPPY BIRD – NEON WINGS EDITION
+   Premium dark-mode game styling
+   ============================================================ */
+
+:root {
+  --clr-bg: #0a0e1a;
+  --clr-surface: rgba(15, 20, 40, 0.85);
+  --clr-neon-cyan: #00f0ff;
+  --clr-neon-pink: #ff2d95;
+  --clr-neon-gold: #ffd700;
+  --clr-neon-green: #39ff14;
+  --clr-text: #e8eaed;
+  --clr-text-dim: rgba(232, 234, 237, 0.5);
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  --radius: 16px;
+  --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.4), 0 0 60px rgba(0, 240, 255, 0.15);
+  --glow-pink: 0 0 20px rgba(255, 45, 149, 0.4), 0 0 60px rgba(255, 45, 149, 0.15);
+  --glow-gold: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 60px rgba(255, 215, 0, 0.15);
+}
+
+/* Reset */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-body);
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Game Wrapper */
+#game-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Canvas */
+#game-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============================================================
+   OVERLAY SCREENS
+   ============================================================ */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 8, 18, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ============================================================
+   START SCREEN
+   ============================================================ */
+.start-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: fadeSlideUp 0.8s ease-out;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+.game-title {
+  font-family: var(--font-display);
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 4px;
+}
+
+.title-word {
+  display: block;
+  letter-spacing: 0.15em;
+}
+
+.title-word.flappy {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--clr-neon-cyan), #6effff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+}
+
+.title-word.bird {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--clr-neon-pink), #ff7eb3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255, 45, 149, 0.5));
+}
+
+.subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(0.65rem, 2vw, 0.85rem);
+  letter-spacing: 0.4em;
+  color: var(--clr-text-dim);
+  text-transform: uppercase;
+}
+
+/* Bird Preview */
+.bird-preview {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-bird {
+  width: 48px;
+  height: 36px;
+  border-radius: 50% 50% 50% 30%;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), inset -4px -4px 8px rgba(0,0,0,0.2);
+  position: relative;
+  animation: bird-bob 1.2s ease-in-out infinite;
+}
+
+.preview-bird::before {
+  content: '';
+  position: absolute;
+  right: 6px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 3px 0 0 #1a1a2e;
+}
+
+.preview-bird::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 14px;
+  width: 12px;
+  height: 6px;
+  border-radius: 0 8px 8px 0;
+  background: #ff4444;
+}
+
+@keyframes bird-bob {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-play {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  border: 2px solid var(--clr-neon-cyan);
+  border-radius: 60px;
+  background: rgba(0, 240, 255, 0.08);
+  color: var(--clr-neon-cyan);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--glow-cyan);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-play::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,240,255,0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-play:hover {
+  background: rgba(0, 240, 255, 0.15);
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.5), 0 0 80px rgba(0, 240, 255, 0.2);
+}
+
+.btn-play:hover::before {
+  opacity: 1;
+}
+
+.btn-play:active {
+  transform: scale(0.98);
+}
+
+.btn-icon {
+  font-size: 1.2em;
+}
+
+.controls-hint {
+  font-size: 0.8rem;
+  color: var(--clr-text-dim);
+  letter-spacing: 0.05em;
+}
+
+.controls-hint span {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  color: var(--clr-text);
+}
+
+/* ============================================================
+   GAME OVER SCREEN
+   ============================================================ */
+.gameover-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.gameover-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, #ff2d95, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255, 45, 149, 0.5));
+}
+
+.score-panel {
+  background: var(--clr-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 24px 48px;
+  min-width: 260px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  padding: 8px 0;
+}
+
+.score-label {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--clr-text-dim);
+}
+
+.score-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--clr-neon-cyan);
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.score-value.best {
+  color: var(--clr-neon-gold);
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.score-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  margin: 8px 0;
+}
+
+/* Medal */
+.medal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.medal-container.hidden {
+  display: none;
+}
+
+.medal {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  animation: medal-appear 0.5s ease-out;
+}
+
+.medal.bronze {
+  background: linear-gradient(135deg, #cd7f32, #a0522d);
+  border: 3px solid #e8a060;
+}
+
+.medal.silver {
+  background: linear-gradient(135deg, #c0c0c0, #808080);
+  border: 3px solid #e0e0e0;
+}
+
+.medal.gold {
+  background: linear-gradient(135deg, #ffd700, #daa520);
+  border: 3px solid #ffe44d;
+}
+
+.medal.platinum {
+  background: linear-gradient(135deg, #00f0ff, #7b68ee);
+  border: 3px solid #6effff;
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
+}
+
+@keyframes medal-appear {
+  from { transform: scale(0) rotate(-180deg); opacity: 0; }
+  to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.medal-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--clr-text-dim);
+}
+
+/* ============================================================
+   HUD
+   ============================================================ */
+#hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#hud.hidden {
+  opacity: 0;
+}
+
+#score-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 30px rgba(0, 240, 255, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* New Best Badge */
+.new-best {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--clr-neon-gold);
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+  animation: pulse-best 1s ease-in-out infinite;
+}
+
+.new-best.hidden {
+  display: none;
+}
+
+@keyframes pulse-best {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.08); }
+}
+
+@media (max-width: 480px) {
+  .score-panel {
+    padding: 16px 28px;
+    min-width: 200px;
+  }
+
+  .btn-play {
+    padding: 14px 32px;
+    font-size: 0.85rem;
+  }
+}
